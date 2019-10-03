@@ -9,14 +9,34 @@ class EvolutionarySolver(object):
         self.depot =                    data["depot"]
         self.num_vehicles =             data["num_vehicles"]
         self.starting_population_size = data["starting_population_size"]
+        self.children_per_gen =         10
+        self.max_population_size =      20
+        self.muation_chance =           0.01
+        self.max_generations =          100
         self.seed =                     data["seed"]
         # Initalized values
         self.rand =                     random.Random(self.seed)
         self.population = []
+        self.current_generation = 0
 
     """ Solves the problem using the information given """
     def solve(self):
         self.build_population()
+        running = True
+        while running:
+            self.run_generation()
+            if self.current_generation >= self.max_generations :
+                break
+            self.current_generation += 1
+        self.print_population()
+
+
+    """ Runs a single generation of our optimizer """
+    def run_generation(self):
+        # make a new number of children based on the number given in internal variable children_per_gen
+        for new_children in range(self.children_per_gen):
+            self.mate()
+        self.survival_selection()
 
     """ Builds the initial population by iterating over a range of the starting pop size """
     def build_population(self):
@@ -59,3 +79,21 @@ class EvolutionarySolver(object):
     def print_population(self):
         for creature in self.population:
             print(creature)
+
+    """ Mate two creatures together """
+    def mate(self):
+        # select one parent from the list
+        # select another parent from the list
+        # use another function here to generate a child based on one of the multiary breeding methods
+        # feed it through the mutate function
+        pass
+
+    def survival_selection(self):
+        # sort based on fitness
+        # truncate the best amount equal to max_population_size
+        pass
+
+    def mutate(self, creature):
+        # generate a random number between 0 and 1 using the rand instantiated in the solver
+        # if that is less than the mutation chance swap two value random values based on an integer chosen via rand range
+        pass
