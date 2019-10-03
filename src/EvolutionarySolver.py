@@ -48,8 +48,9 @@ class EvolutionarySolver(object):
         # initialize score at zero
         fitness_score = 0
         # Iterate over the entire genome starting with index 0 and finishing at last element
-        for nodeIndex in range(len(creature['genome']) - 1):
-            fitness_score += self.distance_matrix[creature['genome'][nodeIndex]][creature['genome'][nodeIndex + 1]]
+        for node_index in range(len(creature['genome']) - 1):
+            # add the distance between this node and the next one to the current fitness score
+            fitness_score += self.distance_matrix[creature['genome'][node_index]][creature['genome'][node_index + 1]]
         # Finish the loop
         fitness_score += self.distance_matrix[creature['genome'][-1]][creature['genome'][0]]
         return fitness_score
